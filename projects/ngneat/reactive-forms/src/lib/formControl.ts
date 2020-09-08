@@ -34,7 +34,6 @@ import { coerceArray, mergeErrors, removeError } from './utils';
 export class FormControl<T = any, E extends object = any> extends NgFormControl {
   readonly value: T;
   readonly errors: E | null;
-  readonly asyncValidator: AsyncValidatorFn<T>;
   readonly valueChanges: Observable<T>;
   readonly status: ControlState;
   readonly statusChanges: Observable<ControlState>;
@@ -53,6 +52,10 @@ export class FormControl<T = any, E extends object = any> extends NgFormControl 
 
   constructor(formState?: OrBoxedValue<T>, validatorOrOpts?: ValidatorOrOpts, asyncValidator?: AsyncValidator) {
     super(formState, validatorOrOpts, asyncValidator);
+  }
+
+  get asyncValidator(): AsyncValidatorFn {
+    return this.asyncValidator;
   }
 
   setValue(valueOrObservable: Observable<T>, options?: ControlOptions): Subscription;
